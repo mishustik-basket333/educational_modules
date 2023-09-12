@@ -23,7 +23,7 @@ from config import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('categories/', include('categories.urls', namespace='categories')),
-    path('python/', include('python.urls', namespace='python')),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
