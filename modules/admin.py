@@ -5,7 +5,7 @@ from modules.models import Modules
 
 # Register your models here.
 @admin.register(Modules)
-class HabitAdmin(admin.ModelAdmin):
-    list_display = ("title", "owner", "description")
+class ModulesAdmin(admin.ModelAdmin):
+    list_display = ("title", "description")
     list_filter = ("title",)
-    search_fields = ("title", "owner",)
+    search_fields = ("title",)

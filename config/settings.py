@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
+from datetime import timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -24,7 +25,7 @@ load_dotenv(BASE_DIR / '.env')
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(*xem9_=s77^3(8$3nf0)mfdfm141=7uhmsc3p)%jtqv=s1#j!'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -50,6 +51,17 @@ INSTALLED_APPS = [
     'modules',
 
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -89,7 +101,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.getenv('NAME_DB'),
         'USER': os.getenv('USER_DB'),
-        'PASSWORD': os.getenv('PASSWORD'),
+        'PASSWORD': os.getenv('PASSWORD_DB'),
         'HOST': os.getenv('HOST_DB'),
         'PORT': os.getenv('PORT_DB'),
     }
@@ -116,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 

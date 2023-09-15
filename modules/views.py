@@ -6,14 +6,11 @@ from modules.pagination import ModulesPagination
 from modules.serializers import ModulesSerializer
 
 
-# from habits.permissions import OwnerPermission
-
-
 class ModulesCreateAPIView(generics.CreateAPIView):
     """ Создание обучающего модуля """
 
     serializer_class = ModulesSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         data_modules = serializer.save()
@@ -26,10 +23,11 @@ class ModulesListAPIView(generics.ListAPIView):
 
     serializer_class = ModulesSerializer
     pagination_class = ModulesPagination
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Modules.objects.filter(user=self.request.user)
+        # return Modules.objects.filter(id_users=self.request.user)
+        return Modules.objects.all()
 
 
 class ModulesRetrieveAPIView(generics.RetrieveAPIView):
@@ -39,7 +37,8 @@ class ModulesRetrieveAPIView(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Modules.objects.filter(user=self.request.user)
+        return Modules.objects.filter(id_users=self.request.user)
+        # return Modules.objects.all()
 
 
 class ModulesUpdateAPIView(generics.UpdateAPIView):
@@ -49,13 +48,15 @@ class ModulesUpdateAPIView(generics.UpdateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Modules.objects.filter(user=self.request.user)
+        # return Modules.objects.filter(id_users=self.request.user)
+        return Modules.objects.all()
 
 
 class ModulesDestroyAPIView(generics.DestroyAPIView):
     """ Удаление обучающего модуля"""
     serializer_class = ModulesSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Modules.objects.filter(user=self.request.user)
+        # return Modules.objects.filter(id_users=self.request.user)
+        return Modules.objects.all()
