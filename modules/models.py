@@ -13,6 +13,7 @@ class Modules(models.Model):
     video = models.FileField(upload_to='educational-modules/modules/video', verbose_name='видео', **NULLABLE)
     id_category = models.ForeignKey(Category, verbose_name="категория", on_delete=models.SET_NULL, **NULLABLE)
     id_users = models.ManyToManyField(User, verbose_name="пользователь", related_name='id_users')
+    count_views = models.PositiveIntegerField(verbose_name="кол-во просмотров", default=0)
 
     def __str__(self):
         return f'{self.title}'

@@ -3,7 +3,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from users.models import User
 from users.pagination import UserPagination
-from users.serializers.user import UserSerializer, UserPublishedSerializer
+from users.permissions import IsModeratorPermission, IsTeacherPermission
+from users.serializers import UserSerializer, UserPublishedSerializer
 
 
 class UsersCreateAPIView(generics.CreateAPIView):
@@ -21,19 +22,17 @@ class UserPublishedListAPIView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        # return User.objects.filter(user=self.request.user)
         return User.objects.all()
 
 
 class UserListAPIView(generics.ListAPIView):
-    """ Полный вывод списка пользователей"""
+    """ Вывод списка расширенных данных пользователей """
 
     serializer_class = UserSerializer
     pagination_class = UserPagination
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated & (IsModeratorPermission | IsTeacherPermission)]
 
     def get_queryset(self):
-        # return User.objects.filter(user=self.request.user)
         return User.objects.all()
 
 
@@ -44,8 +43,9 @@ class UsersRetrieveAPIView(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
+        if "moderator" in self.request.user.roles:
+            return User.objects.all()
         return User.objects.filter(id=self.request.user.pk)
-        # return User.objects.all()
 
 
 class UsersUpdateAPIView(generics.UpdateAPIView):
@@ -55,14 +55,16 @@ class UsersUpdateAPIView(generics.UpdateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
+        if "moderator" in self.request.user.roles:
+            return User.objects.all()
         return User.objects.filter(id=self.request.user.pk)
-        # return User.objects.all()
 
 
 class UsersDestroyAPIView(generics.DestroyAPIView):
     """ Удаление данных пользователя"""
+
     serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated & IsModeratorPermission]
 
     def get_queryset(self):
         return User.objects.all()

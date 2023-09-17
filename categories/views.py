@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from categories.models import Category
 from categories.pagination import CategoriesPagination
 from categories.serializers import CategoriesSerializer
+from users.permissions import IsModeratorPermission, IsTeacherPermission
 
 
 class CategoriesViewSet(viewsets.ModelViewSet):
@@ -19,13 +20,15 @@ class CategoriesViewSet(viewsets.ModelViewSet):
         #     return Course.objects.all()
         # return Course.objects.filter(owner=self.request.user)
 
-    default_permission_class = [AllowAny()]
-    # permissions = {
-    #     'create': [IsSuperUserPermission()],
-    #     'list': [IsAuthenticated() or IsModeratorPermission() or IsSuperUserPermission()],
-    #     'retrieve': [IsAuthenticated() or IsModeratorPermission() or IsSuperUserPermission()],
-    #     'update': [IsAuthenticated() or IsModeratorPermission() or IsSuperUserPermission()],
-    #     'partial_update': [IsAuthenticated() or IsModeratorPermission() or IsSuperUserPermission()],
-    #     'destroy': [IsSuperUserPermission()],
+    default_permission_class = [IsModeratorPermission()]
+    permissions = {
+        'create': [IsAuthenticated() and IsModeratorPermission() or IsTeacherPermission()],
+        'list': [IsModeratorPermission()],
+        'retrieve': [IsAuthenticated()],
+        'update': [IsModeratorPermission() or IsTeacherPermission()],
+        'partial_update': [IsAuthenticated() or IsModeratorPermission() or IsTeacherPermission()],
+        'destroy': [IsModeratorPermission()],
+    }
     #
-    # }
+    # def get_permissions(self):
+    #     return self.permissions.get(self.action, self.default_permission_class)
