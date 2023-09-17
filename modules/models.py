@@ -7,6 +7,7 @@ from users.models import NULLABLE, User
 class Modules(models.Model):
     """Класс для отображения образовательных модулей"""
     title = models.CharField(max_length=100, verbose_name='название образовательного модуля')
+    # count_views=
     description = models.TextField(verbose_name='описание', **NULLABLE)
     photo = models.ImageField(upload_to='educational-modules/modules/photo', verbose_name='фото', **NULLABLE)
     video = models.FileField(upload_to='educational-modules/modules/video', verbose_name='видео', **NULLABLE)

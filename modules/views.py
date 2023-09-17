@@ -37,8 +37,11 @@ class ModulesRetrieveAPIView(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
+        self.count_view +=1
+        self.save()
         return Modules.objects.filter(id_users=self.request.user)
         # return Modules.objects.all()
+
 
 
 class ModulesUpdateAPIView(generics.UpdateAPIView):
