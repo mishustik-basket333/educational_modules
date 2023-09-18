@@ -21,8 +21,11 @@
         python manage.py runserver
     6) Проверка соответствия кода стандартам pep8 осуществялется командой:
         python manage.py flake8
-    7) Запуск тестирования вызывается командой 
-    
+    7) Запуск тестирования вызывается командой:
+        python manage.py test
+    8) Можно запусть и вывести подсчёт покрытия тестами проекта с помощью команд:
+        coverage run --source='.' manage.py test
+        coverage report
         
 
 
