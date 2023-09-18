@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from categories.models import Category
 from modules.models import Modules
-from modules.serializers import ModulesSerializer, ModulesSmallSerializer
+from modules.serializers import ModulesSmallSerializer
 
 
 # from modules.validators import double_reward_validator

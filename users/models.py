@@ -16,6 +16,7 @@ class User(AbstractUser):
     username = None
 
     email = models.EmailField(unique=True, verbose_name='почта')
+    chat_telegram_id = models.CharField(max_length=255, unique=True, verbose_name=' Ссылка на телеграмм', **NULLABLE)
     phone = models.CharField(max_length=30, verbose_name='телефон', **NULLABLE)
     country = models.CharField(max_length=235, verbose_name='страна', **NULLABLE)
     city = models.CharField(max_length=235, verbose_name='город', **NULLABLE)
