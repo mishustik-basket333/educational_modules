@@ -15,7 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ("id", "email", "chat_telegram_id", "first_name", "first_name", "last_name", 'phone', 'country',
                   'city', "roles", "modules")
         validators = [
-            TelegramIdValidator(field='chat_telegram_id'),
+            # TelegramIdValidator(field='chat_telegram_id'),
             EmailValidator(field="email")
         ]
 

@@ -15,12 +15,13 @@ class UsersCreateAPIView(generics.CreateAPIView):
     permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
-        # print("test")
-        # print(request.data["chat_telegram_id"])
+        print("test")
+
         # welcome_send_mail(email=request.data["email"])
-        # welcome_send_telegram(chat_telegram_id="@ii_ildar")
-        # welcome_send_mail("iiiskhakov1990@gmail.com")
-        # welcome_send_telegram(chat_telegram_id="@ii_ildar")
+
+        if "chat_telegram_id" in request.data:
+            welcome_send_telegram(chat_telegram_id=request.data["chat_telegram_id"])
+
         return self.create(request, *args, **kwargs)
 
     # def get_queryset(self):
