@@ -2,6 +2,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from multiselectfield import MultiSelectField
 
+from users.manager import UserManager
+
 NULLABLE = {'blank': True, 'null': True}
 
 
@@ -25,6 +27,8 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
+
+    objects = UserManager()
 
     class Meta:
         verbose_name = 'пользователь'
