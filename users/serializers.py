@@ -1,3 +1,4 @@
+from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
 
 from modules.serializers import ModulesSmallSerializer
@@ -10,10 +11,13 @@ class UserSerializer(serializers.ModelSerializer):
 
     modules = ModulesSmallSerializer(source='id_users', read_only=True, many=True)
 
+    # def validate_password(self, value):
+    #     return make_password(value)
+
     class Meta:
         model = User
         fields = ("id", "email", "chat_telegram_id", "first_name", "first_name", "last_name", 'phone', 'country',
-                  'city', "roles", "modules")
+                  'city', "roles", "modules", "password")
         validators = [
             TelegramIdValidator(field='chat_telegram_id'),
             EmailValidator(field="email")
