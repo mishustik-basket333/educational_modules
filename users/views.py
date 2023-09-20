@@ -15,7 +15,6 @@ class UsersCreateAPIView(generics.CreateAPIView):
     permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
-        print("test")
 
         welcome_send_mail(email=request.data["email"])
 
