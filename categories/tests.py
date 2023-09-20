@@ -40,7 +40,7 @@ class CategoriesTestCase(APITestCase):
         print(response.json())
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(User.objects.all().count(), 1)
+        self.assertEqual(Category.objects.all().count(), 2)
 
     def test_2_list_category(self):
         """ Тестирование вывода списка категорий """
@@ -86,4 +86,3 @@ class CategoriesTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(Category.objects.all().exists())
         self.assertEqual(Category.objects.all().count(), 0)
-

@@ -15,7 +15,6 @@ class UsersCreateAPIView(generics.CreateAPIView):
     permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
-        print("test")
 
         welcome_send_mail(email=request.data["email"])
 
@@ -23,6 +22,11 @@ class UsersCreateAPIView(generics.CreateAPIView):
             welcome_send_telegram(chat_telegram_id=request.data["chat_telegram_id"])
 
         return self.create(request, *args, **kwargs)
+
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        instance.set_password(instance.password)
+        instance.save()
 
 
 class UserPublishedListAPIView(generics.ListAPIView):

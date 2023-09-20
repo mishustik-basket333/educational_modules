@@ -33,11 +33,10 @@ class ModulesTestCase(APITestCase):
         data = {
             "title": "test",
             "description": "test",
+            "id_users": self.user.id
         }
 
         response = self.client.post('/modules/create/', data=data)
-
-        print(response.json())
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(User.objects.all().count(), 1)
@@ -48,7 +47,7 @@ class ModulesTestCase(APITestCase):
         response = self.client.get('/modules/')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(User.objects.all().count(), 1)
+        self.assertEqual(Modules.objects.all().count(), 1)
 
     def test_3_list_all_modules(self):
         """ Тестирование вывода полных данных списка модулей """
@@ -56,7 +55,7 @@ class ModulesTestCase(APITestCase):
         response = self.client.get('/modules/all/')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(User.objects.all().count(), 1)
+        self.assertEqual(Modules.objects.all().count(), 1)
 
     def test_4_update_modules(self):
         """ Тестирование обновления данных о modules """
