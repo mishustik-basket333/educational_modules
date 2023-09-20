@@ -13,10 +13,10 @@ class ModulesCreateAPIView(generics.CreateAPIView):
     serializer_class = ModulesSerializer
     permission_classes = [IsAuthenticated & (IsModeratorPermission | IsTeacherPermission)]
 
-    def perform_create(self, serializer):
-        data_modules = serializer.save()
-        data_modules.user = self.request.user
-        data_modules.save()
+    # def perform_create(self, serializer):
+    #     data_modules = serializer.save()
+    #     data_modules.user = self.request.user
+    #     data_modules.save()
 
 
 class ModulesPublishedListAPIView(generics.ListAPIView):

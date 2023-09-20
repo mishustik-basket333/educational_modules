@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'drf_yasg',
     'multiselectfield',
+    'django_celery_beat',
 
     'categories',
     'users',

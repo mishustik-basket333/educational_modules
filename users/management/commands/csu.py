@@ -12,8 +12,8 @@ class Command(BaseCommand):
             last_name='SkyPro',
             is_staff=True,
             is_superuser=True,
-            chat_telegram_id="ii_ildar",
             is_active=True,
+            roles=['moderator', 'teacher']
         )
 
         user.set_password('123456')

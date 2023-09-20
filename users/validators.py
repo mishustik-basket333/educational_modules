@@ -7,8 +7,8 @@ class TelegramIdValidator:
 
     def __call__(self, value):
         tmp_data = value.get(self.field)
-        if tmp_data is not None and tmp_data[0] != '@':
-            raise serializers.ValidationError('Адрес телеграмма должен начинаться с: @ ')
+        if tmp_data is not None and type(tmp_data) not in (str, int):
+            raise serializers.ValidationError('Поле "chat_telegram_id" должно быть строкой или числом ')
 
 
 class EmailValidator:
